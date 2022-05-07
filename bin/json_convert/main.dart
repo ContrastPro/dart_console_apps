@@ -1,16 +1,39 @@
-import 'airline_model.dart';
+import 'logger/airline_logger.dart';
+import 'models/airline_model.dart';
+import 'repositories/airline_repository.dart';
 
 void main() {
+  _simpleObjectConvert();
+  _fetchAndConvert();
+}
+
+void _simpleObjectConvert() {
+  const AirlineLogger logger = AirlineLogger.instance;
+
   final Map<String, dynamic> data = {
     'id': 1,
     'name': 'Quatar Airways',
-    'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Qatar_Airways_Logo.svg/300px-Qatar_Airways_Logo.svg.png',
+    'country': 'Quatar',
+    'logo': 'http://tny.im/s4J',
+    'slogan': 'Going Places Together',
     'website': 'www.qatarairways.com',
-    'averagePrice': 849.59,
   };
 
-  final Airline airline = Airline.fromJson(data);
+  final AirlineModel airline = AirlineModel.fromJson(data);
 
-  print('The average cost of "${airline.name}" tickets is:');
-  print('${airline.averagePrice}\$');
+  logger.info('The slogan of ${airline.name} "is: ${airline.slogan}"');
+}
+
+Future<void> _fetchAndConvert() async {
+  const AirlineLogger logger = AirlineLogger.instance;
+
+  final AirlineModel? airline = await AirlineRepository.getAirlineById(
+    airlineId: 2,
+  );
+
+  if (airline != null) {
+    logger.info('The slogan of ${airline.name} "is: ${airline.slogan}"');
+  } else {
+    logger.error('Airline not found');
+  }
 }
