@@ -3,7 +3,7 @@ import 'models/airline_model.dart';
 import 'repositories/airline_repository.dart';
 
 void main() {
-  _simpleObjectConvert();
+  //_simpleObjectConvert();
   _fetchAndConvert();
 }
 
@@ -21,7 +21,7 @@ void _simpleObjectConvert() {
 
   final AirlineModel airline = AirlineModel.fromJson(data);
 
-  logger.info('The slogan of ${airline.name} "is: ${airline.slogan}"');
+  logger.info('The slogan of ${airline.name} is: "${airline.slogan}"');
 }
 
 Future<void> _fetchAndConvert() async {
@@ -32,7 +32,10 @@ Future<void> _fetchAndConvert() async {
   );
 
   if (airline != null) {
-    logger.info('The slogan of ${airline.name} "is: ${airline.slogan}"');
+    print('The slogan of ${airline.name} is: ');
+    print('"${airline.slogan}"');
+
+    logger.info('The slogan of ${airline.name} is: "${airline.slogan}"');
   } else {
     logger.error('Airline not found');
   }
