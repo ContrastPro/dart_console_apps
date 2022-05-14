@@ -32,9 +32,6 @@ Future<void> _fetchAndConvert() async {
   );
 
   if (airline != null) {
-    print('The slogan of ${airline.name} is: ');
-    print('"${airline.slogan}"');
-
     logger.info('The slogan of ${airline.name} is: "${airline.slogan}"');
   } else {
     logger.error('Airline not found');
