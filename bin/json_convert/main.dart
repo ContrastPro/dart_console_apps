@@ -1,10 +1,13 @@
+import 'package:dio/dio.dart';
+
 import 'logger/airline_logger.dart';
 import 'models/airline_model.dart';
 import 'repositories/airline_repository.dart';
 
 void main() {
-  //_simpleObjectConvert();
-  _fetchAndConvert();
+  _simpleObjectConvert();
+  //_simpleRequestConvert();
+  //_fetchAndConvert();
 }
 
 void _simpleObjectConvert() {
@@ -22,6 +25,26 @@ void _simpleObjectConvert() {
   final AirlineModel airline = AirlineModel.fromJson(data);
 
   logger.info('The slogan of ${airline.name} is: "${airline.slogan}"');
+}
+
+Future<void> _simpleRequestConvert() async {
+  const AirlineLogger logger = AirlineLogger.instance;
+
+  final Dio dio = Dio();
+
+  final Response response = await dio.get(
+    'https://api.instantwebtools.net/v1/airlines/1',
+  );
+
+  if (response.statusCode == 200) {
+    final AirlineModel airline = AirlineModel.fromJson(
+      response.data,
+    );
+
+    logger.info('The slogan of ${airline.name} is: "${airline.slogan}"');
+  } else {
+    logger.error('Airline not found');
+  }
 }
 
 Future<void> _fetchAndConvert() async {
