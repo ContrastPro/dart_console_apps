@@ -25,4 +25,15 @@ class AirlineModel {
   final String logo;
   final String slogan;
   final String website;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'country': country,
+      'logo': logo,
+      'slogan': slogan,
+      'website': website,
+    };
+  }
 }
