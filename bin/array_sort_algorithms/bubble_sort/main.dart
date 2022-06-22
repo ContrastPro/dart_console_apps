@@ -22,8 +22,9 @@ List<int> _bubbleSort(List<int> data) {
 
         // Swapping occurs if elements
         // are not in the intended order
+        final int temp = array[j];
         array[j] = array[j + 1];
-        array[j + 1] = array[j];
+        array[j + 1] = temp;
       }
     }
   }
